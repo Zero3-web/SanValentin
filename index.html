@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+         SAN VALENTÍN NEWS — Periódico Romántico Interactivo
+         Desarrollado por: Zero
+         Versión: 1.0.0
+         Fecha: Febrero 2026
+         
+         EDITAR: Cambia el título del tab del navegador aquí abajo
+         ============================================================ -->
+  <title>San Valentín News</title>
+  <meta name="description" content="Edición Especial de San Valentín - Un periódico romántico personalizado." />
+
+  <!-- EDITAR: Fuentes de Google — Puedes cambiar las tipografías aquí -->
+  <!-- Great Vibes = letra cursiva elegante | Lato = texto limpio | Playfair Display = títulos con estilo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Librerías externas (CDN) -->
+  <!-- canvas-confetti: Efecto de confetti cuando acepta la misión -->
+  <!-- html2canvas: Genera imagen PNG de los cupones para descargar -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ===== CORAZONES FLOTANTES =====
+         EDITAR: Los corazones se generan dinámicamente desde app.js
+         Puedes cambiar la cantidad, color y velocidad en app.js → createFloatingHearts() -->
+  <div id="floating-hearts" class="floating-hearts-container"></div>
+
+  <!-- ===== BARRA DE NAVEGACIÓN SUPERIOR =====
+         EDITAR: Cambia el nombre de tu pareja aquí en "top-nav-name"
+         En móvil se ve siempre, en desktop aparece al pasar el mouse -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <span class="top-nav-label">Preparado Para</span>
+      <!-- EDITAR: Cambia "Mi Amor" por el nombre de tu pareja -->
+      <span class="top-nav-name">Mi Amor</span>
+    </div>
+  </nav>
+
+  <!-- ===== CUPONES IMPRIMIBLES (oculto, usado para generar la imagen PNG) =====
+         EDITAR: Este bloque se usa para generar la imagen descargable de los cupones
+         Los tickets se insertan automáticamente desde app.js -->
+  <div id="printable-coupons" class="printable-coupons">
+    <div class="printable-coupons-inner">
+      <h1 class="font-headline printable-title">Cupones Oficiales</h1>
+      <p class="font-body printable-subtitle">Exclusivo para <span id="coupon-partner-name">Mi Amor</span></p>
+      <div class="printable-grid" id="printable-tickets-list">
+        <!-- Los tickets se insertan desde app.js automáticamente -->
+      </div>
+      <div class="printable-footer">
+        <p class="font-script printable-sign">Con amor.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTENEDOR PRINCIPAL DE SCROLL HORIZONTAL =====
+         Cada <section> es una "página" del periódico que se navega horizontalmente -->
+  <main id="scroll-container" class="scroll-container">
+
+    <!-- ─── SECCIÓN 1: PORTADA ───
+           EDITAR: Cambia el título principal, la edición, y el texto de la pregunta
+           Esta es la primera pantalla que verá tu pareja -->
+    <section class="section section-cover" id="section-0">
+      <div class="cover-content animate-fade-in-up">
+        <!-- EDITAR: Cambia el número de volumen o el texto de edición -->
+        <div class="cover-edition">Vol. 14 • Edición Especial</div>
+
+        <!-- EDITAR: Título principal de la portada -->
+        <h1 class="font-headline cover-title">Edición <br class="mobile-only" /> Amor.</h1>
+
+        <div class="cover-divider"></div>
+
+        <div class="cover-question-wrapper">
+          <!-- EDITAR: Subtítulo de la portada -->
+          <p class="cover-question-label">Una Pregunta Muy Importante</p>
+          <div class="cover-valentine-wrapper">
+            <!-- EDITAR: El texto grande en cursiva roja -->
+            <div class="font-script cover-valentine">¿Valentine?</div>
+          </div>
+        </div>
+      </div>
+      <!-- Botón para avanzar a la siguiente sección -->
+      <button class="next-btn" onclick="scrollToSection(1); startMusicJourney()" aria-label="Siguiente Sección">
+        <span class="next-btn-label">Siguiente</span>
+        <svg class="next-btn-icon pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+    </section>
+
+    <!-- ─── SECCIÓN 2: LA HISTORIA ───
+           EDITAR: Aquí van las fotos del carrusel y el texto de la historia
+           Las imágenes se cambian en app.js → appData.galleryImages
+           El texto de la historia se cambia en app.js → appData.articleBody -->
+    <section class="section section-story" id="section-1">
+      <div class="story-grid">
+        <!-- Carrusel de fotos — Las imágenes se definen en app.js -->
+        <div class="story-photo-col">
+          <div class="story-photo-frame">
+            <div class="story-photo-inner" id="carousel-container">
+              <!-- Las imágenes se insertan dinámicamente desde app.js (ver config.js) -->
+            </div>
+          </div>
+          <p class="story-photo-caption" id="carousel-caption">Fig 1.1: Momentos Inolvidables</p>
+        </div>
+
+        <!-- Texto con efecto de máquina de escribir -->
+        <div class="story-text-col">
+          <div>
+            <!-- EDITAR: Cambia el titular de la historia en app.js → appData.articleHeadline -->
+            <h2 class="font-headline story-headline">La Pareja Perfecta</h2>
+            <div class="story-headline-bar"></div>
+          </div>
+          <div class="story-body-wrapper">
+            <!-- El texto se escribe automáticamente con efecto typing desde app.js -->
+            <p class="font-body story-body" id="story-typing-target">
+              <span id="story-typed-text"></span><span id="story-cursor" class="typing-cursor"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Botón que aparece al terminar el efecto de escritura -->
+      <div id="story-next-wrapper" class="next-btn-fade hidden">
+        <button class="next-btn" onclick="scrollToSection(2)" aria-label="Siguiente Sección">
+          <span class="next-btn-label">Siguiente</span>
+          <svg class="next-btn-icon pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ─── SECCIÓN 3: LA MISIÓN ───
+           EDITAR: Personaliza las opciones de los botones
+           Ambos botones dicen "sí" a propósito — es parte del chiste romántico -->
+    <section class="section section-mission" id="section-2">
+      <div class="mission-content">
+        <!-- EDITAR: Cambia la pregunta de la misión -->
+        <h2 class="font-headline mission-title">¿Aceptas esta misión?</h2>
+        <div class="mission-buttons">
+          <!-- EDITAR: Cambia el texto de las opciones -->
+          <button class="mission-btn" id="btn-yes" onclick="toggleMission('yes')">
+            <div class="mission-btn-inner">
+              <span class="mission-btn-label">Opción A</span>
+              <span class="font-headline mission-btn-text">Sí, absolutamente.</span>
+            </div>
+          </button>
+          <button class="mission-btn" id="btn-yes-course" onclick="toggleMission('yes_course')">
+            <div class="mission-btn-inner">
+              <span class="mission-btn-label">Opción B</span>
+              <span class="font-headline mission-btn-text">¡Sí, por supuesto!</span>
+            </div>
+          </button>
+        </div>
+        <!-- Mensaje de respuesta — aparece con animación al elegir -->
+        <div class="mission-response hidden" id="mission-response">
+          <!-- EDITAR: Cambia el mensaje de respuesta -->
+          <p class="font-script mission-response-text">¡Gran elección! La única respuesta correcta.</p>
+        </div>
+      </div>
+      <div class="hidden" id="mission-next-wrapper">
+        <button class="next-btn" onclick="scrollToSection(3)" aria-label="Ver Regalos">
+          <span class="next-btn-label">Ver Regalos</span>
+          <svg class="next-btn-icon pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ─── SECCIÓN 4: CUPONES CANJEABLES ───
+           EDITAR: Agrega o quita cupones duplicando/eliminando los bloques .ticket
+           También puedes editar los cupones en app.js → appData.tickets -->
+    <section class="section section-tickets" id="section-3">
+      <header class="tickets-header">
+        <h3 class="font-headline tickets-title">Cupones Canjeables</h3>
+        <p class="font-body tickets-subtitle">Válido Para Siempre • Haz Click</p>
+      </header>
+      <div class="tickets-grid" id="tickets-grid">
+        <!-- EDITAR: Cupón 1 — Cambia el texto del cupón -->
+        <div class="ticket" id="ticket-1" onclick="redeemTicket(1)">
+          <div class="ticket-border"></div>
+          <span class="ticket-label">Vale por Uno</span>
+          <h4 class="font-headline ticket-text">Cena Romántica</h4>
+          <div class="ticket-stamp hidden" id="stamp-1">
+            <div class="stamp-inner">
+              <span class="stamp-text">CANJEADO</span>
+              <span class="stamp-date" id="stamp-date-1"></span>
+            </div>
+          </div>
+        </div>
+        <!-- EDITAR: Cupón 2 — Cambia el texto del cupón -->
+        <div class="ticket" id="ticket-2" onclick="redeemTicket(2)">
+          <div class="ticket-border"></div>
+          <span class="ticket-label">Vale por Uno</span>
+          <h4 class="font-headline ticket-text">Noche de Pelis</h4>
+          <div class="ticket-stamp hidden" id="stamp-2">
+            <div class="stamp-inner">
+              <span class="stamp-text">CANJEADO</span>
+              <span class="stamp-date" id="stamp-date-2"></span>
+            </div>
+          </div>
+        </div>
+        <!-- EDITAR: Cupón 3 — Cambia el texto del cupón -->
+        <div class="ticket" id="ticket-3" onclick="redeemTicket(3)">
+          <div class="ticket-border"></div>
+          <span class="ticket-label">Vale por Uno</span>
+          <h4 class="font-headline ticket-text">Abrazos Ilimitados</h4>
+          <div class="ticket-stamp hidden" id="stamp-3">
+            <div class="stamp-inner">
+              <span class="stamp-text">CANJEADO</span>
+              <span class="stamp-date" id="stamp-date-3"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="next-btn" onclick="scrollToSection(4)" aria-label="Nuestra Canción">
+        <span class="next-btn-label">Nuestra Canción</span>
+        <svg class="next-btn-icon pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+    </section>
+
+    <!-- ─── SECCIÓN 5: REPRODUCTOR DE MÚSICA ───
+           EDITAR: Cambia la canción, artista y portada del álbum
+           Los datos de la canción se configuran en app.js → appData.music
+           La imagen del álbum se cambia en el src del <img> dentro de .vinyl-label -->
+    <section class="section section-music" id="section-4">
+      <div class="music-ambient"></div>
+      <!-- Elemento de audio real (invisible) -->
+      <audio id="audio-player" loop></audio>
+      <div class="music-content">
+        <!-- Disco de vinilo con animación de giro -->
+        <div class="vinyl-wrapper">
+          <div class="vinyl-record" id="vinyl-record">
+            <!-- Surcos del disco -->
+            <div class="vinyl-groove groove-1"></div>
+            <div class="vinyl-groove groove-2"></div>
+            <div class="vinyl-groove groove-3"></div>
+            <div class="vinyl-groove groove-4"></div>
+            <!-- EDITAR: Cambia la imagen de portada del álbum aquí -->
+            <div class="vinyl-label">
+              <img src="https://upload.wikimedia.org/wikipedia/en/7/74/Bruno_Mars_-_Just_the_Way_You_Are_-_2010.png"
+                alt="Album Art" class="vinyl-cover-img" />
+            </div>
+            <div class="vinyl-hole"></div>
+          </div>
+          <!-- Brazo del tocadiscos (visual) -->
+          <div class="tonearm" id="tonearm">
+            <div class="tonearm-arm"></div>
+            <div class="tonearm-base"></div>
+          </div>
+        </div>
+        <!-- Controles del reproductor -->
+        <div class="player-controls">
+          <span class="player-now-playing">Reproduciendo Ahora</span>
+          <div class="player-info">
+            <!-- EDITAR: Cambia el nombre de la canción y el artista -->
+            <h2 class="font-headline player-song">Just the Way You Are</h2>
+            <p class="font-body player-artist">Bruno Mars</p>
+          </div>
+          <!-- Barra de progreso visual -->
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <!-- Botones de control -->
+          <div class="player-buttons">
+            <button class="player-btn-secondary">
+              <svg class="player-icon-sm" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11 16.5l-6-4.5 6-4.5v9zM21 16.5l-6-4.5 6-4.5v9z" />
+              </svg>
+            </button>
+            <button class="player-btn-play" id="play-btn" onclick="togglePlay()">
+              <svg class="player-icon-play" id="play-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg class="player-icon-play hidden" id="pause-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            </button>
+            <button class="player-btn-secondary">
+              <svg class="player-icon-sm" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M13 16.5l6-4.5-6-4.5v9zM3 16.5l6-4.5-6-4.5v9z" />
+              </svg>
+            </button>
+          </div>
+          <!-- EDITAR: Cambia la frase romántica de la canción -->
+          <p class="font-body player-quote">"Esta canción siempre me recuerda a ti..."</p>
+        </div>
+      </div>
+      <button class="next-btn next-btn-light" onclick="scrollToSection(5)" aria-label="Razones">
+        <span class="next-btn-label">Razones</span>
+        <svg class="next-btn-icon pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+    </section>
+
+    <!-- ─── SECCIÓN 6: RAZONES ───
+           EDITAR: Las 5 razones se configuran en app.js → appData.reasons
+           Puedes agregar más o quitar razones, y agregar más <li> aquí si necesitas -->
+    <section class="section section-reasons" id="section-5">
+      <div class="reasons-content">
+        <header class="reasons-header">
+          <!-- EDITAR: Cambia el título de esta sección -->
+          <h3 class="font-headline reasons-title">5 Razones Por Qué</h3>
+          <div class="reasons-divider"></div>
+        </header>
+        <!-- Las razones se escriben con efecto typing — el texto viene de app.js -->
+        <ul class="reasons-list" id="reasons-list">
+          <li class="reason-item" data-index="0">
+            <span class="font-headline reason-number">01</span>
+            <div class="font-body reason-text"><span class="reason-typed" id="reason-0"></span><span
+                class="typing-cursor reason-cursor" id="reason-cursor-0"></span></div>
+          </li>
+          <li class="reason-item" data-index="1">
+            <span class="font-headline reason-number">02</span>
+            <div class="font-body reason-text"><span class="reason-typed" id="reason-1"></span><span
+                class="typing-cursor reason-cursor" id="reason-cursor-1"></span></div>
+          </li>
+          <li class="reason-item" data-index="2">
+            <span class="font-headline reason-number">03</span>
+            <div class="font-body reason-text"><span class="reason-typed" id="reason-2"></span><span
+                class="typing-cursor reason-cursor" id="reason-cursor-2"></span></div>
+          </li>
+          <li class="reason-item" data-index="3">
+            <span class="font-headline reason-number">04</span>
+            <div class="font-body reason-text"><span class="reason-typed" id="reason-3"></span><span
+                class="typing-cursor reason-cursor" id="reason-cursor-3"></span></div>
+          </li>
+          <li class="reason-item" data-index="4">
+            <span class="font-headline reason-number">05</span>
+            <div class="font-body reason-text"><span class="reason-typed" id="reason-4"></span><span
+                class="typing-cursor reason-cursor" id="reason-cursor-4"></span></div>
+          </li>
+        </ul>
+      </div>
+      <!-- Botón que aparece al terminar de escribir todas las razones -->
+      <div class="hidden" id="reasons-next-wrapper">
+        <button class="next-btn" onclick="scrollToSection(6)" aria-label="Dedicatoria">
+          <span class="next-btn-label">Dedicatoria</span>
+          <svg class="next-btn-icon pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ─── SECCIÓN 7: MENSAJE FINAL ───
+           EDITAR: Cambia el mensaje de dedicatoria final
+           El botón de descarga genera una imagen PNG de los cupones -->
+    <section class="section section-final" id="section-6">
+      <div class="final-content animate-fade-in-up">
+        <span class="final-label">Mensaje Final</span>
+        <!-- EDITAR: Personaliza tu mensaje de cierre -->
+        <p class="font-script final-message">
+          Gracias por compartir tu tiempo conmigo y ser mi San Valentín. <br /><span class="final-love">Te amo.</span>
+        </p>
+      </div>
+      <!-- Botón para descargar los cupones como imagen -->
+      <div class="final-download">
+        <button class="download-btn" onclick="handleDownloadCoupons()">
+          <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          <span class="font-body download-label">Descargar Cupones</span>
+        </button>
+      </div>
+      <!-- Botón para volver al inicio -->
+      <button class="repeat-btn" onclick="scrollToSection(0)">
+        <span class="repeat-label">Repetir</span>
+        <svg class="repeat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 12h16m0 0l-6-6m6 6l-6 6"
+            transform="rotate(180 12 12)" />
+        </svg>
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Lógica principal de la aplicación -->
+  <!-- Supabase para cargar datos dinámicos -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
