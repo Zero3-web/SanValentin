@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Luego configuramos el contenido visual
   setupContent(); // Inyecta los textos y fotos de config.js
+  setupTickets(); // Inyecta los cupones de config.js
   createFloatingHearts();          // Crea los corazones flotantes
   setupCarousel();                  // Configura la rotación automática del carrusel
   setupIntersectionObservers();     // Configura los disparadores de animación por scroll
@@ -127,6 +128,34 @@ function setupContent() {
       img.className = 'carousel-img';
       if (index === 0) img.classList.add('active');
       carouselContainer.appendChild(img);
+    });
+  }
+}
+
+// ===== SETUP TICKETS =====
+function setupTickets() {
+  const ticketsGrid = document.getElementById('tickets-grid');
+  if (ticketsGrid && appData.tickets && appData.tickets.length > 0) {
+    ticketsGrid.innerHTML = ''; // Limpiar cupones hardcoded
+    appData.tickets.forEach(ticket => {
+      const ticketDiv = document.createElement('div');
+      ticketDiv.className = 'ticket';
+      ticketDiv.id = `ticket-${ticket.id}`;
+      if (ticket.redeemed) ticketDiv.classList.add('redeemed');
+      ticketDiv.onclick = () => redeemTicket(ticket.id);
+
+      ticketDiv.innerHTML = `
+        <div class="ticket-border"></div>
+        <span class="ticket-label">Vale por Uno</span>
+        <h4 class="font-headline ticket-text">${ticket.text}</h4>
+        <div class="ticket-stamp ${ticket.redeemed ? 'visible' : 'hidden'}" id="stamp-${ticket.id}">
+          <div class="stamp-inner">
+            <span class="stamp-text">CANJEADO</span>
+            <span class="stamp-date" id="stamp-date-${ticket.id}">${ticket.redeemedDate || ''}</span>
+          </div>
+        </div>
+      `;
+      ticketsGrid.appendChild(ticketDiv);
     });
   }
 }

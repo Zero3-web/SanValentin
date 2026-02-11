@@ -17,9 +17,8 @@ window.appData = {
     // Sube tus fotos a la carpeta 'assets/images/' y pon sus nombres aquí.
     // Ejemplo: "assets/images/foto1.jpg"
     galleryImages: [
-        "images/foto1.jpg", // Asegúrate de tener este archivo
-        "images/foto2.jpg",
-        "images/foto3.jpg"
+        "imagenes/imagen1.png",
+        "imagenes/imagen2.png"
     ],
 
     // 4. HISTORIA PRINCIPAL
@@ -32,7 +31,7 @@ window.appData = {
         songTitle: "Just the Way You Are",
         artist: "Bruno Mars",
         // Ruta de tu archivo de música (ej. 'assets/music/cancion.mp3')
-        audioUrl: "music/musica.mp3",
+        audioUrl: "musica/musica.mp3",
     },
 
     // 6. CUPONES
