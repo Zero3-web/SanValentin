@@ -37,7 +37,7 @@ window.appData = {
     // 6. CUPONES
     // Puedes agregar o quitar cupones aquí.
     tickets: [
-        { id: 1, text: "Cena Romántica", redeemed: false },
+        { id: 1, text: "Cena e", redeemed: false },
         { id: 2, text: "Noche de Pelis", redeemed: false },
         { id: 3, text: "Abrazos Ilimitados", redeemed: false },
         { id: 4, text: "Masaje de Espalda", redeemed: false } // Ejemplo de nuevo cupón
